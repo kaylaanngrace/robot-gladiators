@@ -1,25 +1,35 @@
+var fightOrSkip = function(){
+  // ask player of they'd like fight or run
+  var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
+  
+  // conditional recursive function call
+  if (promptFight === "" || promptFight === null) {
+    window.alert("You need to provide a valid answer! Please try again.");
+    return fightOrSkip();
+  }
+
+  promptFight = promptFight.toLowerCase();
+  // if player choses to skip
+  if (promptFight === "skip" || promptFight === "SKIP") {
+  // confirm player wants to skip
+
+  var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+
+    // if yes (true), leave fight 
+    if (confirmSkip) {
+      window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+      //subtract money from playMoney for skipping 
+      playerInfo.money = playerInfo.money - 10;
+      console.log("playerInfo.money", playerInfo.money);
+    }
+  }
+}
 // fight function (now with parameter for enemy's name)
 var fight = function (enemy) {
   //repeat and execute as long as enemy-robot is alive
   while(playerInfo.health > 0 && enemy.health > 0) {
-
-    // ask player of they'd like fight or run
-    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
-    
-    // if player choses to skip
-    if (promptFight === "skip" || promptFight === "SKIP") {
-    // confirm player wants to skip
-    var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-
-      // if yes (true), leave fight 
-      if (confirmSkip) {
-        window.alert(playerInfo.name = " has decided to skip this fight. Goodbye!");
-        //subtract money from playMoney for skipping 
-        playerInfo.money = Math.max(0, playerInfo.money - 10);
-        console.log("playerInfo.money", playerInfo.money);
-        break;
-      }
-    };
+    fightOrSkip()
+    break;
 
     // generate random damage value based on player's attack power
     var damage = randomNumber(playerInfo.attack -3, playerInfo.attack);
