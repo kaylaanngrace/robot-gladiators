@@ -1,3 +1,10 @@
+// function to generate a random numeric value
+var randomNumber = function(min, max) {
+  var value = Math.floor(Math.random()* (max - min + 1) + min);
+
+  return value;
+};
+
 var fightOrSkip = function(){
   // ask player of they'd like fight or run
   var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
@@ -19,10 +26,11 @@ var fightOrSkip = function(){
     if (confirmSkip) {
       window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
       //subtract money from playMoney for skipping 
-      playerInfo.money = playerInfo.money - 10;
-      console.log("playerInfo.money", playerInfo.money);
+      playerInfo.money = Math.max(0, playerInfo.money - 10);
+      return true;
     }
   }
+  return false;
 }
 // fight function (now with parameter for enemy's name)
 var fight = function (enemy) {
@@ -95,6 +103,9 @@ var startGame = function() {
   playerInfo.reset();
 
   for (var i = 0; i < enemyInfo.length; i++) {
+
+    console.log(playerInfo);
+
     if(playerInfo.health > 0) {
       // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
       window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
@@ -105,8 +116,7 @@ var startGame = function() {
       // rest enemyHealth before starting new fight
       pickedEnemyObj.health = randomNumber(40, 60);
 
-      //use debugger to pause script from running and check what's going on at the moment in code 
-      //debugger
+      console.log(pickedEnemyObj);
 
       // pass the pickedEnemyName variable's value into the fight function, where it will assumethe value of the enemyName parameter
       fight(pickedEnemyObj);
@@ -194,13 +204,6 @@ var shop = function() {
       break;
     // end of defaul
   }
-};
-
-// function to generate a random numeric value
-var randomNumber = function(min, max) {
-  var value = Math.floor(Math.random()* (max - min + 1) + min);
-
-  return value;
 };
 
 // function to set name
